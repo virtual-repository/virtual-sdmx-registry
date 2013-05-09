@@ -1,0 +1,14 @@
+<registries>
+	<generic>
+		<name ns="http://acme/org">testregistry</name>
+		<address>http://acme.org/some/thing</address>
+		<property name="name" value="value" description="description"/>
+	</generic>
+	<generic>
+		<name ns="http://acme/org">testregistry2</name>
+		<address>http://acme.org/some/thing/extra</address>
+	</generic>
+	<gcube scope="/gcube/devsec">
+		<name ns="http://acme/org">testregistry3</name>
+	</gcube>
+</registries>
