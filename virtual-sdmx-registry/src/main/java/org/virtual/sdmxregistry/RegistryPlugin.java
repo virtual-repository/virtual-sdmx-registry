@@ -8,9 +8,9 @@ import javax.xml.bind.JAXBContext;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.virtualrepository.RepositoryService;
 import org.virtualrepository.spi.Lifecycle;
 import org.virtualrepository.spi.Plugin;
-import org.virtualrepository.spi.RepositoryService;
 
 public class RegistryPlugin implements Plugin, Lifecycle {
 
