@@ -11,7 +11,7 @@ import org.virtualrepository.impl.Type;
 import org.virtualrepository.sdmx.SdmxCodelist;
 import org.virtualrepository.spi.Importer;
 
-public class RegistryImporter implements Importer<SdmxCodelist,SdmxBeans> {
+public class RegistryImporter implements Importer<SdmxCodelist,CodelistBean> {
 
 	private final SDMXRegistryClient endpoint;
 
@@ -25,19 +25,19 @@ public class RegistryImporter implements Importer<SdmxCodelist,SdmxBeans> {
 	}
 
 	@Override
-	public Class<SdmxBeans> api() {
-		return SdmxBeans.class;
+	public Class<CodelistBean> api() {
+		return CodelistBean.class;
 	}
 
 	@Override
-	public SdmxBeans retrieve(SdmxCodelist asset) throws Exception {
+	public CodelistBean retrieve(SdmxCodelist asset) throws Exception {
 		
 		SdmxBeans beans = endpoint.getCodelist("all", asset.remoteId(), asset.version(), Detail.referencestubs, References.none);
 	
 		Iterator<CodelistBean> it = beans.getCodelists().iterator();
 
 		if (it.hasNext())
-			return beans;
+			return it.next();
 		else
 			throw new IllegalStateException("unknown codelist "+asset.remoteId()+"("+asset.version()+")");
 	}

@@ -21,10 +21,11 @@ import org.sdmxsource.sdmx.sdmxbeans.model.mutable.base.AnnotationMutableBeanImp
 import org.sdmxsource.sdmx.sdmxbeans.model.mutable.codelist.CodeMutableBeanImpl;
 import org.sdmxsource.sdmx.sdmxbeans.model.mutable.codelist.CodelistMutableBeanImpl;
 import org.sdmxsource.sdmx.structureparser.manager.impl.StructureWritingManagerImpl;
-import org.virtual.sdmxregistry.GCubeRegistry;
+import org.sdmxsource.sdmx.util.beans.container.SdmxBeansImpl;
 import org.virtual.sdmxregistry.GCubeProxy;
-import org.virtual.sdmxregistry.GenericRegistry;
+import org.virtual.sdmxregistry.GCubeRegistry;
 import org.virtual.sdmxregistry.GenericProxy;
+import org.virtual.sdmxregistry.GenericRegistry;
 import org.virtual.sdmxregistry.RegistryBrowser;
 import org.virtual.sdmxregistry.RegistryImporter;
 import org.virtual.sdmxregistry.RegistryPublisher;
@@ -90,9 +91,9 @@ public class APITests {
 		
 		SdmxCodelist codelist = new SdmxCodelist("http://whatever.org","TEST_CODELIST","2.0", "whatever");
 		
-		SdmxBeans beans = importer.retrieve(codelist);
+		CodelistBean bean = importer.retrieve(codelist);
 		
-		toXML(beans);
+		toXML(bean);
 
 	}
 	
@@ -132,6 +133,35 @@ public class APITests {
 		return codelist.getImmutableInstance();
 	}
 	
+//	@Test
+//	public void aCodelist() {
+//		
+//		CodelistMutableBean codelist = new CodelistMutableBeanImpl();
+//		codelist.setAgencyId("SDMX");
+//		codelist.setId("TEST_CODELIST");
+//		codelist.addName("en", "codelistname");
+//		
+//		SdmxBeans beans = new SdmxBeansImpl();
+//		
+//		CodelistBean immutable = codelist.getImmutableInstance();
+//		
+//		System.out.println(immutable.isPartial());
+//		System.out.println(immutable.getStartDate());
+//		beans.addCodelist(immutable);
+//		toXML(beans);
+//		
+//	}
+	
+	
+	void toXML(CodelistBean bean) {
+
+		SdmxBeans beans = new SdmxBeansImpl();
+		beans.addCodelist(bean);
+		
+		toXML(beans);
+		
+		
+	}
 	
 	void toXML(SdmxBeans beans) {
 
