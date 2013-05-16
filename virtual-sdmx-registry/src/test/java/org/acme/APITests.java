@@ -133,25 +133,6 @@ public class APITests {
 		return codelist.getImmutableInstance();
 	}
 	
-//	@Test
-//	public void aCodelist() {
-//		
-//		CodelistMutableBean codelist = new CodelistMutableBeanImpl();
-//		codelist.setAgencyId("SDMX");
-//		codelist.setId("TEST_CODELIST");
-//		codelist.addName("en", "codelistname");
-//		
-//		SdmxBeans beans = new SdmxBeansImpl();
-//		
-//		CodelistBean immutable = codelist.getImmutableInstance();
-//		
-//		System.out.println(immutable.isPartial());
-//		System.out.println(immutable.getStartDate());
-//		beans.addCodelist(immutable);
-//		toXML(beans);
-//		
-//	}
-	
 	
 	void toXML(CodelistBean bean) {
 

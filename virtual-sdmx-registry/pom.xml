@@ -8,6 +8,11 @@
 	<name>Virtual SDMX Registry</name>
 	<description>A Virtual Repository Plugin for the Virtual Repository</description>
 
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+
+
 	<repositories>
 		<repository>
 			<id>sdmxsource</id>
