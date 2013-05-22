@@ -1,12 +1,15 @@
 package org.virtual.sdmxregistry;
 
 import static org.virtualrepository.Utils.*;
+import static org.virtualrepository.spi.ImportAdapter.*;
 
 import java.util.Arrays;
 import java.util.List;
 
 import org.gcube.datapublishing.sdmx.api.registry.SDMXRegistryClient;
+import org.virtual.sdmxregistry.transforms.Sdmx2Table;
 import org.virtualrepository.spi.Browser;
+import org.virtualrepository.spi.Importer;
 import org.virtualrepository.spi.ServiceProxy;
 
 public abstract class RegistryProxy<T extends Registry> implements ServiceProxy {
@@ -40,8 +43,8 @@ public abstract class RegistryProxy<T extends Registry> implements ServiceProxy 
 	}
 
 	@Override
-	public List<RegistryImporter> importers() {
-		return Arrays.asList(importer);
+	public List<Importer<?,?>> importers() {
+		return Arrays.<Importer<?,?>>asList(importer, adapt(importer,new Sdmx2Table()));
 	}
 
 	@Override
