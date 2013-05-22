@@ -49,7 +49,9 @@ public class Sdmx2Table implements Transform<SdmxCodelist, CodelistBean, Table> 
 			
 			for (AnnotationBean annotation :  code.getAnnotations())
 				for (TextTypeWrapper text: annotation.getText()) {
-					String title = annotation.getTitle()==null?"annotation":annotation.getTitle();
+					String title = annotation.getTitle()==null?
+								   			annotation.getType()==null?"annotation":annotation.getType()
+							       :annotation.getTitle();
 					QName columnName = new QName(title+"-"+text.getLocale());
 					QName type = annotation.getType()==null?new QName("annotation"):new QName(annotation.getType());
 					Column column = new Column(columnName, type, String.class);

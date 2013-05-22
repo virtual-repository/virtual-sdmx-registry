@@ -67,7 +67,7 @@ public class TableTransformTest {
 		CodelistBean list = list().add(code("c1").name("test","en")
 				                                 .add(anno().title("title"))
 				                                 .add(anno().title("title2").text("t1","en").text("t2","fr").text("t3","sp"))
-				                                  .add(anno().title("title2").text("t1","en").type("type"))
+				                                  .add(anno().text("t1","en").type("type"))
 				                                )
 				                  .end();
 		
