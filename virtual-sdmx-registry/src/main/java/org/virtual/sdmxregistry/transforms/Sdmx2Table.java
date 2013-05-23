@@ -26,12 +26,22 @@ public class Sdmx2Table implements Transform<SdmxCodelist, CodelistBean, Table> 
 	public Table apply(SdmxCodelist asset, CodelistBean codelist) throws Exception {
 		
 		Set<Column> columns = new LinkedHashSet<Column>(); //keeps insertion order
+		
 		List<Row> rows = new ArrayList<Row>();
+		
+		Column codeColumn = new Column(new QName(asset.name()+"-code"), new QName("code"), String.class);
+		
+		//add code column
+		if (!codelist.getItems().isEmpty())
+			columns.add(codeColumn);
 		
 		for (CodeBean code : codelist.getItems()) {
 			
 			Map<QName,String> data = new HashMap<QName, String>();
 			
+			data.put(codeColumn.name(),code.getId());
+			
+			//add name columns
 			for (TextTypeWrapper name: code.getNames()) {
 				QName columnName = new QName("name-"+name.getLocale());
 				Column column = new Column(columnName, new QName("name"), String.class);
@@ -39,7 +49,7 @@ public class Sdmx2Table implements Transform<SdmxCodelist, CodelistBean, Table> 
 				data.put(columnName,name.getValue());
 			}
 			
-			
+			//add description columns
 			for (TextTypeWrapper description: code.getDescriptions()) {
 				QName columnName = new QName("description-"+description.getLocale());
 				Column column = new Column(columnName, new QName("description"), String.class);
@@ -47,6 +57,7 @@ public class Sdmx2Table implements Transform<SdmxCodelist, CodelistBean, Table> 
 				data.put(columnName,description.getValue());
 			}
 			
+			//add annotation columns
 			for (AnnotationBean annotation :  code.getAnnotations())
 				for (TextTypeWrapper text: annotation.getText()) {
 					String title = annotation.getTitle()==null?
