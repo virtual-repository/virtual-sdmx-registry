@@ -30,7 +30,11 @@ import org.virtual.sdmxregistry.RegistryBrowser;
 import org.virtual.sdmxregistry.RegistryImporter;
 import org.virtual.sdmxregistry.RegistryPublisher;
 import org.virtualrepository.Asset;
+import org.virtualrepository.VirtualRepository;
+import org.virtualrepository.csv.CsvCodelist;
+import org.virtualrepository.impl.Repository;
 import org.virtualrepository.sdmx.SdmxCodelist;
+import org.virtualrepository.tabular.Table;
 
 public class APITests {
 
@@ -61,6 +65,23 @@ public class APITests {
 
 		for (Asset asset : assets)
 			System.out.println(asset);
+	}
+	
+	
+	@Test
+	public void browseAndRetrieveCsvSources() {
+		
+		VirtualRepository repo  = new Repository();
+		
+		repo.discover(CsvCodelist.type);
+		
+		for (Asset asset : repo)
+			System.out.println(asset);
+		
+		Table table = repo.retrieve(repo.iterator().next(),Table.class);
+		
+		System.out.println(table);
+		
 	}
 	
 	
@@ -96,6 +117,7 @@ public class APITests {
 		toXML(bean);
 
 	}
+
 	
 	@Test
 	public void publishAsset() throws Exception {
