@@ -2,15 +2,10 @@ package org.acme;
 
 
 import static org.junit.Assert.*;
+import static org.sdmx.CodelistBuilder.*;
 
 import org.junit.Test;
 import org.sdmxsource.sdmx.api.model.beans.codelist.CodelistBean;
-import org.sdmxsource.sdmx.api.model.mutable.base.AnnotationMutableBean;
-import org.sdmxsource.sdmx.api.model.mutable.codelist.CodeMutableBean;
-import org.sdmxsource.sdmx.api.model.mutable.codelist.CodelistMutableBean;
-import org.sdmxsource.sdmx.sdmxbeans.model.mutable.base.AnnotationMutableBeanImpl;
-import org.sdmxsource.sdmx.sdmxbeans.model.mutable.codelist.CodeMutableBeanImpl;
-import org.sdmxsource.sdmx.sdmxbeans.model.mutable.codelist.CodelistMutableBeanImpl;
 import org.virtual.sdmxregistry.csv.Sdmx2Table;
 import org.virtualrepository.sdmx.SdmxCodelist;
 import org.virtualrepository.tabular.Table;
@@ -76,91 +71,6 @@ public class TableTransformTest {
 		
 	}
 	
-	
 
-	static Builder list() {
-		return new Builder();
-	}
 	
-	static CodeBuilder code(String id) {
-		return new CodeBuilder(id);
-	}
-	
-	static AnnotationBuilder anno() {
-		return new AnnotationBuilder();
-	}
-	
-	static class Builder {
-		
-		private CodelistMutableBean bean = new CodelistMutableBeanImpl();
-		
-		public Builder() {
-			bean.addName("en","testlist");
-			bean.setAgencyId("SDMX");
-			bean.setId("testlist");
-		}
-		
-		public Builder add(CodeBuilder builder) {
-			bean.addItem(builder.build());
-			return this;
-		}
-		
-		public CodelistBean end() {
-			return bean.getImmutableInstance();
-		}
-		
-	}
-	
-	static class CodeBuilder {
-		
-		private CodeMutableBean bean = new CodeMutableBeanImpl();
-		
-		public CodeBuilder(String id) {
-			bean.setId(id);
-		}
-		
-		CodeBuilder name(String val,String lang) {
-			bean.addName(lang,val);
-			return this;
-		}
-		
-		CodeBuilder description(String val,String lang) {
-			bean.addDescription(lang,val);
-			return this;
-		}
-		
-		CodeBuilder add(AnnotationBuilder builder) {
-			bean.addAnnotation(builder.build());
-			return this;
-		}
-		
-		CodeMutableBean build() {
-			return bean;
-		}
-	}
-	
-	static class AnnotationBuilder {
-		
-		private AnnotationMutableBean bean = new AnnotationMutableBeanImpl();
-		
-		AnnotationBuilder title(String title) {
-			bean.setTitle(title);
-			return this;
-		}
-		
-		AnnotationBuilder type(String type) {
-			bean.setType(type);
-			return this;
-		}
-		
-		AnnotationBuilder text(String val,String lang) {
-			bean.addText(lang,val);
-			return this;
-		}
-		
-		AnnotationMutableBean build() {
-			return bean;
-		}
-	}
-
 }
