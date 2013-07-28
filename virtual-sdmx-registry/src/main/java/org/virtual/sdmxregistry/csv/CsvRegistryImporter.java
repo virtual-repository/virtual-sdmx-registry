@@ -1,4 +1,4 @@
-package csv;
+package org.virtual.sdmxregistry.csv;
 
 import static org.virtual.sdmxregistry.Constants.*;
 import static org.virtualrepository.spi.ImportAdapter.*;

@@ -6,11 +6,11 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.gcube.datapublishing.sdmx.api.registry.SDMXRegistryClient;
+import org.virtual.sdmxregistry.csv.CsvRegistryImporter;
 import org.virtualrepository.spi.Browser;
 import org.virtualrepository.spi.Importer;
 import org.virtualrepository.spi.ServiceProxy;
 
-import csv.CsvRegistryImporter;
 
 public abstract class RegistryProxy<T extends Registry> implements ServiceProxy {
 

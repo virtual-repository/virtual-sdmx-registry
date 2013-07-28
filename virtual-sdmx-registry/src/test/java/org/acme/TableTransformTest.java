@@ -11,10 +11,10 @@ import org.sdmxsource.sdmx.api.model.mutable.codelist.CodelistMutableBean;
 import org.sdmxsource.sdmx.sdmxbeans.model.mutable.base.AnnotationMutableBeanImpl;
 import org.sdmxsource.sdmx.sdmxbeans.model.mutable.codelist.CodeMutableBeanImpl;
 import org.sdmxsource.sdmx.sdmxbeans.model.mutable.codelist.CodelistMutableBeanImpl;
+import org.virtual.sdmxregistry.csv.Sdmx2Table;
 import org.virtualrepository.sdmx.SdmxCodelist;
 import org.virtualrepository.tabular.Table;
 
-import csv.Sdmx2Table;
 
 public class TableTransformTest {
 

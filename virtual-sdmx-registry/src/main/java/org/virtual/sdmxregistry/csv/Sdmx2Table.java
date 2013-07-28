@@ -1,4 +1,4 @@
-package csv;
+package org.virtual.sdmxregistry.csv;
 
 import java.util.ArrayList;
 import java.util.HashMap;
