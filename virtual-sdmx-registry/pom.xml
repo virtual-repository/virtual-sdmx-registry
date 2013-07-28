@@ -15,6 +15,12 @@
 
 	<repositories>
 		<repository>
+			<snapshots />
+			<id>fips-snapshots</id>
+			<name>fips-snapshot</name>
+			<url>http://artifactory.fao.org/artifactory/fips</url>
+		</repository>
+		<repository>
 			<id>gcube-snapshots</id>
 			<name>gCube Snapshots</name>
 			<url>http://maven.research-infrastructures.eu/nexus/content/repositories/gcube-snapshots</url>
@@ -52,7 +58,7 @@
 			<artifactId>virtual-repository</artifactId>
 			<version>[1.0.0-SNAPSHOT,2.0.0-SNAPSHOT)</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.virtualrepository</groupId>
 			<artifactId>sdmxsource-adapter</artifactId>
@@ -86,7 +92,7 @@
 			<version>1.9.5</version>
 			<scope>test</scope>
 		</dependency>
-		
+
 
 	</dependencies>
 
