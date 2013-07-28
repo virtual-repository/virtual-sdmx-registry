@@ -21,6 +21,16 @@
 			<url>http://artifactory.fao.org/artifactory/fips</url>
 		</repository>
 		<repository>
+			<id>sdmxsource</id>
+			<url>http://www.metadatatechnology.com/nexus/content/repositories/releases</url>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+		</repository>
+		<repository>
 			<id>gcube-snapshots</id>
 			<name>gCube Snapshots</name>
 			<url>http://maven.research-infrastructures.eu/nexus/content/repositories/gcube-snapshots</url>
