@@ -36,18 +36,17 @@ public class RegistryBrowser implements Browser {
 	@Override
 	public Iterable<? extends MutableAsset> discover(Collection<? extends AssetType> types) throws Exception {
 
-		List<MutableAsset> assets = new ArrayList<MutableAsset>();
+		//coding cautiously below: VR should not pass us an unsupported type
 		
-		List<SdmxCodelist> sdmxAssets = discoverSdmxCodelist();
+		if (types.contains(SdmxCodelist.type))
+			return discoverSdmxCodelist();
 		
-		for (AssetType type : types)
-			if (type==SdmxCodelist.type)
-				assets.addAll(sdmxAssets);
-			else 
-				if (type==CsvCodelist.type)
-					assets.addAll(discoverCsvCodelist(sdmxAssets));
-
-		return assets;
+		if (types.contains(CsvCodelist.type)) 
+			return discoverCsvCodelist(discoverSdmxCodelist());
+		
+		
+		throw new IllegalArgumentException("unsupported types "+types);
+		
 	}
 	
 	
