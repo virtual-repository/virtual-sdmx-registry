@@ -31,14 +31,14 @@
 			</releases>
 		</repository>
 		<repository>
-			<id>gcube-snapshots</id>
-			<name>gCube Snapshots</name>
-			<url>http://maven.research-infrastructures.eu/nexus/content/repositories/gcube-snapshots</url>
+			<id>gcube-releases</id>
+			<name>gCube Releases</name>
+			<url>http://maven.research-infrastructures.eu/nexus/content/repositories/gcube-releases</url>
 			<releases>
-				<enabled>false</enabled>
+				<enabled>true</enabled>
 			</releases>
 			<snapshots>
-				<enabled>true</enabled>
+				<enabled>fals</enabled>
 			</snapshots>
 		</repository>
 		<repository>
@@ -60,8 +60,10 @@
 		<dependency>
 			<groupId>org.gcube.data.publishing</groupId>
 			<artifactId>sdmx-registry-client-gcube</artifactId>
-			<version>1.0.1-SNAPSHOT</version>
+			<version>1.0.1</version>
 		</dependency>
+
+
 
 		<dependency>
 			<groupId>org.virtualrepository</groupId>
