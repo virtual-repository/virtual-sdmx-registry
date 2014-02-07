@@ -1,6 +1,7 @@
 package org.acme;
 
 import static java.util.Collections.*;
+import static org.sdmxsource.sdmx.api.constants.STRUCTURE_OUTPUT_FORMAT.*;
 
 import java.io.ByteArrayOutputStream;
 import java.net.URI;
@@ -10,17 +11,17 @@ import javax.xml.namespace.QName;
 import org.gcube.datapublishing.sdmx.api.registry.SDMXRegistryClient.Detail;
 import org.gcube.datapublishing.sdmx.api.registry.SDMXRegistryClient.References;
 import org.junit.Test;
-import org.sdmxsource.sdmx.api.constants.STRUCTURE_OUTPUT_FORMAT;
-import org.sdmxsource.sdmx.api.manager.output.StructureWritingManager;
+import org.sdmxsource.sdmx.api.manager.output.StructureWriterManager;
 import org.sdmxsource.sdmx.api.model.beans.SdmxBeans;
 import org.sdmxsource.sdmx.api.model.beans.codelist.CodelistBean;
 import org.sdmxsource.sdmx.api.model.mutable.base.AnnotationMutableBean;
 import org.sdmxsource.sdmx.api.model.mutable.codelist.CodeMutableBean;
 import org.sdmxsource.sdmx.api.model.mutable.codelist.CodelistMutableBean;
+import org.sdmxsource.sdmx.sdmxbeans.model.SdmxStructureFormat;
 import org.sdmxsource.sdmx.sdmxbeans.model.mutable.base.AnnotationMutableBeanImpl;
 import org.sdmxsource.sdmx.sdmxbeans.model.mutable.codelist.CodeMutableBeanImpl;
 import org.sdmxsource.sdmx.sdmxbeans.model.mutable.codelist.CodelistMutableBeanImpl;
-import org.sdmxsource.sdmx.structureparser.manager.impl.StructureWritingManagerImpl;
+import org.sdmxsource.sdmx.structureparser.manager.impl.StructureWriterManagerImpl;
 import org.sdmxsource.sdmx.util.beans.container.SdmxBeansImpl;
 import org.virtual.sdmxregistry.GCubeProxy;
 import org.virtual.sdmxregistry.GCubeRegistry;
@@ -38,7 +39,7 @@ import org.virtualrepository.tabular.Table;
 
 public class APITests {
 
-	private final static String address = "http://pc-fortunati.isti.cnr.it:8080/FusionRegistry/ws/rest/";
+	private final static String address = "http://node8.d.d4science.research-infrastructures.eu:8080/FusionRegistry/ws/rest/";
 	
 	private GenericRegistry registry = new GenericRegistry(new QName("Luigi's"), URI.create(address));
 	private GCubeRegistry gregistry = new GCubeRegistry(new QName("Luigi's"), "/gcube/devsec");
@@ -170,10 +171,8 @@ public class APITests {
 
 		ByteArrayOutputStream stream = new ByteArrayOutputStream(1024);
 		
-		STRUCTURE_OUTPUT_FORMAT format = STRUCTURE_OUTPUT_FORMAT.SDMX_V21_STRUCTURE_DOCUMENT;
-		
-		StructureWritingManager manager = new StructureWritingManagerImpl();
-		manager.writeStructures(beans,format, stream);
+		StructureWriterManager manager = new StructureWriterManagerImpl();
+		manager.writeStructures(beans,new SdmxStructureFormat(SDMX_V21_STRUCTURE_DOCUMENT), stream);
 		
 		System.out.println(stream.toString());
 	}

@@ -17,9 +17,9 @@ public class GenericProxy extends RegistryProxy<GenericRegistry> {
 	public SDMXRegistryClient endpoint() {
 		
 		SDMXRegistryDescriptorImpl descriptor = new SDMXRegistryDescriptorImpl();
-		descriptor.setRest_url_V2_1(registry().address().toString());
+		descriptor.setUrl(SDMXRegistryInterfaceType.RESTV2_1,registry().address().toString());
 		
-		return new FusionRegistryClient(descriptor,SDMXRegistryInterfaceType.RESTV2_1);
+		return new FusionRegistryClient(descriptor);
 		
 	}
 
