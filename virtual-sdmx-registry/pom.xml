@@ -32,6 +32,12 @@
 	<dependencies>
 
 		<dependency>
+			<groupId>org.gcube.data.publishing</groupId>
+			<artifactId>sdmx-registry-client-gcube</artifactId>
+			<version>${sdmx-client-version}</version>
+		</dependency>
+
+		<dependency>
 			<groupId>org.virtualrepository</groupId>
 			<artifactId>virtual-repository</artifactId>
 			<version>[1.0.0-SNAPSHOT,2.0.0-SNAPSHOT)</version>
@@ -128,7 +134,7 @@
 			<activation>
 				<activeByDefault>true</activeByDefault>
 			</activation>
-			
+
 			<id>fao-ci</id>
 
 			<repositories>
@@ -166,16 +172,10 @@
 
 			</repositories>
 
+			<properties>
+				<sdmx-client-version>3.0.0-2.17.1</sdmx-client-version>
+			</properties>
 
-			<dependencies>
-
-				<dependency>
-					<groupId>org.gcube.data.publishing</groupId>
-					<artifactId>sdmx-registry-client-gcube</artifactId>
-					<version>3.0.0-2.17.1</version>
-				</dependency>
-
-			</dependencies>
 
 			<distributionManagement>
 				<repository>
@@ -196,15 +196,9 @@
 			<id>gcube-ci</id>
 
 
-			<dependencies>
-
-				<dependency>
-					<groupId>org.gcube.data.publishing</groupId>
-					<artifactId>sdmx-registry-client-gcube</artifactId>
-					<version>[3.0.0-SNAPSHOT,4.0.0-SNAPSHOT)</version>
-				</dependency>
-
-			</dependencies>
+			<properties>
+				<sdmx-client-version>[3.0.0-SNAPSHOT,4.0.0-SNAPSHOT)</sdmx-client-version>
+			</properties>
 
 			<distributionManagement>
 				<snapshotRepository>
