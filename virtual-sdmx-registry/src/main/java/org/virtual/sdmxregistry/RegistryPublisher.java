@@ -8,10 +8,10 @@ import org.virtualrepository.spi.Publisher;
 
 public class RegistryPublisher implements Publisher<SdmxCodelist,CodelistBean> {
 
-	private final SDMXRegistryClient endpoint;
+	private final ClientFactory factory;
 
-	public RegistryPublisher(SDMXRegistryClient endpoint) {
-		this.endpoint = endpoint;
+	public RegistryPublisher(ClientFactory factory) {
+		this.factory = factory;
 	}
 	
 	@Override
@@ -27,8 +27,10 @@ public class RegistryPublisher implements Publisher<SdmxCodelist,CodelistBean> {
 	@Override
 	public void publish(SdmxCodelist asset, CodelistBean codelist) throws Exception {
 		
+		SDMXRegistryClient client = factory.client();
+		
 		//we do not need to use the asset as the data is fully self-describing
-		this.endpoint.publish(codelist);
+		client.publish(codelist);
 	}
 
 	

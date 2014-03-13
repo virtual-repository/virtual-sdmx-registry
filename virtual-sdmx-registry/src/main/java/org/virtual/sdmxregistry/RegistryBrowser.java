@@ -27,10 +27,10 @@ public class RegistryBrowser implements Browser {
 	public static final Logger log = LoggerFactory.getLogger(RegistryBrowser.class);
 
 	
-	private final SDMXRegistryClient endpoint;
+	private final ClientFactory factory;
 
-	public RegistryBrowser(SDMXRegistryClient endpoint) {
-		this.endpoint = endpoint;
+	public RegistryBrowser(ClientFactory factory) {
+		this.factory = factory;
 	}
 
 	@Override
@@ -54,7 +54,9 @@ public class RegistryBrowser implements Browser {
 
 		List<SdmxCodelist> assets = new ArrayList<SdmxCodelist>();
 
-		SdmxBeans beans = endpoint.getCodelist("all", "all", "all", Detail.allstubs, References.none);
+		SDMXRegistryClient client = factory.client();
+		
+		SdmxBeans beans = client.getCodelist("all", "all", "all", Detail.allstubs, References.none);
 
 		for (CodelistBean list : beans.getCodelists())
 			assets.add(toAsset(list));

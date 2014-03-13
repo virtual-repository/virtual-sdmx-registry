@@ -13,10 +13,10 @@ import org.virtualrepository.spi.Importer;
 
 public class RegistryImporter implements Importer<SdmxCodelist,CodelistBean> {
 
-	private final SDMXRegistryClient endpoint;
+	private final ClientFactory factory;
 
-	public RegistryImporter(SDMXRegistryClient endpoint) {
-		this.endpoint = endpoint;
+	public RegistryImporter(ClientFactory factory) {
+		this.factory = factory;
 	}
 	
 	@Override
@@ -32,7 +32,9 @@ public class RegistryImporter implements Importer<SdmxCodelist,CodelistBean> {
 	@Override
 	public CodelistBean retrieve(SdmxCodelist asset) throws Exception {
 		
-		SdmxBeans beans = endpoint.getCodelist("all", asset.remoteId(), asset.version(), Detail.referencestubs, References.none);
+		SDMXRegistryClient client = factory.client();
+		
+		SdmxBeans beans = client.getCodelist("all", asset.remoteId(), asset.version(), Detail.referencestubs, References.none);
 	
 		Iterator<CodelistBean> it = beans.getCodelists().iterator();
 

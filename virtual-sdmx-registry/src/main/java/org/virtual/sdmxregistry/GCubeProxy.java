@@ -14,11 +14,20 @@ public class GCubeProxy extends RegistryProxy<GCubeRegistry> {
 
 	//helper
 	
-	public SDMXRegistryClient endpoint() {
+	public ClientFactory factory() {
 		
-		ScopeProvider.instance.set(registry().scope());
-		
-		return new FusionRegistryClient(new GCubeSDMXRegistryDescriptor());
+		return new ClientFactory(
+				) {
+			
+			@Override
+			public SDMXRegistryClient client() {
+				
+				ScopeProvider.instance.set(registry().scope());
+				
+				return new FusionRegistryClient(new GCubeSDMXRegistryDescriptor());
+
+			}
+		};
 		
 	}
 

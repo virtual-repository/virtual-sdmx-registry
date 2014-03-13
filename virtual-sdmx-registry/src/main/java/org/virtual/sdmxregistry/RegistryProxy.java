@@ -5,7 +5,6 @@ import static org.virtualrepository.Utils.*;
 import java.util.Arrays;
 import java.util.List;
 
-import org.gcube.datapublishing.sdmx.api.registry.SDMXRegistryClient;
 import org.virtual.sdmxregistry.csv.CsvRegistryImporter;
 import org.virtualrepository.spi.Browser;
 import org.virtualrepository.spi.Importer;
@@ -25,11 +24,11 @@ public abstract class RegistryProxy<T extends Registry> implements ServiceProxy 
 		notNull("registry proxy",registry);
 		this.registry=registry;
 		
-		SDMXRegistryClient endpoint = endpoint();
+		ClientFactory factory = factory();
 			
-		this.browser = new RegistryBrowser(endpoint);
-		this.importer = new RegistryImporter(endpoint);
-		this.publisher = new RegistryPublisher(endpoint);
+		this.browser = new RegistryBrowser(factory);
+		this.importer = new RegistryImporter(factory);
+		this.publisher = new RegistryPublisher(factory);
 		
 	}
 	
@@ -60,6 +59,6 @@ public abstract class RegistryProxy<T extends Registry> implements ServiceProxy 
 	
 	//helper
 	
-	public abstract SDMXRegistryClient endpoint();
+	public abstract ClientFactory factory();
 
 }

@@ -11,6 +11,7 @@ import javax.xml.namespace.QName;
 import org.gcube.datapublishing.sdmx.api.registry.SDMXRegistryClient.Detail;
 import org.gcube.datapublishing.sdmx.api.registry.SDMXRegistryClient.References;
 import org.junit.Test;
+import org.sdmx.SdmxServiceFactory;
 import org.sdmxsource.sdmx.api.manager.output.StructureWriterManager;
 import org.sdmxsource.sdmx.api.model.beans.SdmxBeans;
 import org.sdmxsource.sdmx.api.model.beans.codelist.CodelistBean;
@@ -21,7 +22,6 @@ import org.sdmxsource.sdmx.sdmxbeans.model.SdmxStructureFormat;
 import org.sdmxsource.sdmx.sdmxbeans.model.mutable.base.AnnotationMutableBeanImpl;
 import org.sdmxsource.sdmx.sdmxbeans.model.mutable.codelist.CodeMutableBeanImpl;
 import org.sdmxsource.sdmx.sdmxbeans.model.mutable.codelist.CodelistMutableBeanImpl;
-import org.sdmxsource.sdmx.structureparser.manager.impl.StructureWriterManagerImpl;
 import org.sdmxsource.sdmx.util.beans.container.SdmxBeansImpl;
 import org.virtual.sdmxregistry.GCubeProxy;
 import org.virtual.sdmxregistry.GCubeRegistry;
@@ -39,9 +39,9 @@ import org.virtualrepository.tabular.Table;
 
 public class APITests {
 
-	private final static String address = "http://node8.d.d4science.research-infrastructures.eu:8080/FusionRegistry/ws/rest/";
+	private final static String address = "http://hqldvtcdrsdmx1.hq.un.fao.org:18080/FusionRegistry/ws/rest/";
 	
-	private GenericRegistry registry = new GenericRegistry(new QName("Luigi's"), URI.create(address));
+	private GenericRegistry registry = new GenericRegistry(new QName("FAO's"), URI.create(address));
 	private GCubeRegistry gregistry = new GCubeRegistry(new QName("Luigi's"), "/gcube/devsec");
 	
 	GenericProxy proxy = new GenericProxy(registry);
@@ -50,7 +50,7 @@ public class APITests {
 	@Test
 	public void discoveryQuery() throws Exception {
 
-		SdmxBeans beans = proxy.endpoint().getCodelist("all", "all", "latest", Detail.allstubs, References.none);
+		SdmxBeans beans = proxy.factory().client().getCodelist("all", "all", "latest", Detail.allstubs, References.none);
 
 		for (CodelistBean list : beans.getCodelists())
 			System.out.println(list.getName());
@@ -60,7 +60,7 @@ public class APITests {
 	@Test
 	public void browseSources() throws Exception {
 
-		RegistryBrowser browser = new RegistryBrowser(proxy.endpoint());
+		RegistryBrowser browser = new RegistryBrowser(proxy.factory());
 		
 		Iterable<? extends Asset> assets = browser.discover(singletonList(SdmxCodelist.type));
 
@@ -89,7 +89,7 @@ public class APITests {
 	@Test
 	public void browseGCUBESources() throws Exception {
 
-		RegistryBrowser browser = new RegistryBrowser(gservice.endpoint());
+		RegistryBrowser browser = new RegistryBrowser(gservice.factory());
 		
 		Iterable<? extends Asset> assets = browser.discover(singletonList(SdmxCodelist.type));
 
@@ -101,7 +101,7 @@ public class APITests {
 	@Test
 	public void retrieveQuery() throws Exception {
 
-		SdmxBeans beans = proxy.endpoint().getCodelist("all", "CL_UNIT", "latest", Detail.full, References.none);
+		SdmxBeans beans = proxy.factory().client().getCodelist("all", "CL_UNIT", "latest", Detail.full, References.none);
 		toXML(beans);
 
 	}
@@ -109,11 +109,27 @@ public class APITests {
 	@Test
 	public void retrieveAsset() throws Exception {
 		
-		RegistryImporter importer = new RegistryImporter(proxy.endpoint());
+		RegistryImporter importer = new RegistryImporter(proxy.factory());
 		
 		SdmxCodelist codelist = new SdmxCodelist("http://whatever.org","TEST_CODELIST","2.0", "whatever");
 		
 		CodelistBean bean = importer.retrieve(codelist);
+		
+		toXML(bean);
+
+	}
+	
+	
+	@Test
+	public void retrieveFirstGcubeAsset() throws Exception {
+		
+		RegistryBrowser browser = new RegistryBrowser(gservice.factory());
+		
+		Iterable<? extends Asset> assets = browser.discover(singletonList(SdmxCodelist.type));
+		
+		RegistryImporter importer = new RegistryImporter(gservice.factory());
+		
+		CodelistBean bean = importer.retrieve((SdmxCodelist)assets.iterator().next());
 		
 		toXML(bean);
 
@@ -123,7 +139,7 @@ public class APITests {
 	@Test
 	public void publishAsset() throws Exception {
 
-		RegistryPublisher importer = new RegistryPublisher(proxy.endpoint());
+		RegistryPublisher importer = new RegistryPublisher(proxy.factory());
 		
 		importer.publish(null,aCodelist("3.0"));
 		
@@ -169,9 +185,11 @@ public class APITests {
 	
 	void toXML(SdmxBeans beans) {
 
+		SdmxServiceFactory.writer();
+		
 		ByteArrayOutputStream stream = new ByteArrayOutputStream(1024);
 		
-		StructureWriterManager manager = new StructureWriterManagerImpl();
+		StructureWriterManager manager = SdmxServiceFactory.writer();
 		manager.writeStructures(beans,new SdmxStructureFormat(SDMX_V21_STRUCTURE_DOCUMENT), stream);
 		
 		System.out.println(stream.toString());
