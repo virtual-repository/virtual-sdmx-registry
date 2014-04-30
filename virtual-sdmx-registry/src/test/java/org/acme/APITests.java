@@ -39,7 +39,7 @@ import org.virtualrepository.tabular.Table;
 
 public class APITests {
 
-	private final static String address = "http://hqldvtcdrsdmx1.hq.un.fao.org:18080/FusionRegistry/ws/rest/";
+	private final static String address = "http://data.fao.org/sdmx/registry/";
 	
 	private GenericRegistry registry = new GenericRegistry(new QName("FAO's"), URI.create(address));
 	private GCubeRegistry gregistry = new GCubeRegistry(new QName("Luigi's"), "/gcube/devsec");
