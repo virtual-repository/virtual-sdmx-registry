@@ -29,7 +29,6 @@ import org.virtual.sdmxregistry.GenericProxy;
 import org.virtual.sdmxregistry.GenericRegistry;
 import org.virtual.sdmxregistry.RegistryBrowser;
 import org.virtual.sdmxregistry.RegistryImporter;
-import org.virtual.sdmxregistry.RegistryPublisher;
 import org.virtualrepository.Asset;
 import org.virtualrepository.VirtualRepository;
 import org.virtualrepository.csv.CsvCodelist;
@@ -136,12 +135,15 @@ public class APITests {
 	}
 
 	
-	@Test
-	public void publishAsset() throws Exception {
+	@Test(expected=IllegalStateException.class)
+	public void cannotPublishInReadOnlyRegistry() throws Exception {
 
-		RegistryPublisher importer = new RegistryPublisher(proxy.factory());
+		VirtualRepository repository = new Repository();
 		
-		importer.publish(null,aCodelist("3.0"));
+		SdmxCodelist asset = new SdmxCodelist("test",repository.services().lookup(new QName("FAO Sdmx Registry")));
+		
+		repository.publish(asset,aCodelist("3.0"));
+		
 		
 	}
 	

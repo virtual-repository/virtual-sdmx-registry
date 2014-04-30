@@ -3,6 +3,7 @@ package org.virtual.sdmxregistry;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementRef;
 import javax.xml.namespace.QName;
@@ -15,6 +16,9 @@ public class AbstractRegistry implements Registry {
 	@XmlElement
 	private QName name;
 	
+	@XmlAttribute
+	private boolean readonly;
+	
 	@XmlElementRef
 	private List<ServiceProperty> properties = new ArrayList<ServiceProperty>();
 	
@@ -24,9 +28,14 @@ public class AbstractRegistry implements Registry {
 		this.name=name;
 	}
 	
+	
 	@Override
 	public QName name() {
 		return name;
+	}
+	
+	public boolean isReadonly() {
+		return readonly;
 	}
 	
 	@Override

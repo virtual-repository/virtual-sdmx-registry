@@ -2,12 +2,13 @@ package org.virtual.sdmxregistry;
 
 import static org.virtualrepository.Utils.*;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.virtual.sdmxregistry.csv.CsvRegistryImporter;
 import org.virtualrepository.spi.Browser;
 import org.virtualrepository.spi.Importer;
+import org.virtualrepository.spi.Publisher;
 import org.virtualrepository.spi.ServiceProxy;
 
 
@@ -16,8 +17,10 @@ public abstract class RegistryProxy<T extends Registry> implements ServiceProxy 
 	private final T registry;
 	
 	private final RegistryBrowser browser;
-	private final RegistryImporter importer;
-	private final RegistryPublisher publisher;
+	
+	private final List<Importer<?,?>> importers = new ArrayList<>();
+	
+	private final List<Publisher<?,?>> publishers = new ArrayList<>();
 	
 	public RegistryProxy(T registry) {
 		
@@ -27,8 +30,13 @@ public abstract class RegistryProxy<T extends Registry> implements ServiceProxy 
 		ClientFactory factory = factory();
 			
 		this.browser = new RegistryBrowser(factory);
-		this.importer = new RegistryImporter(factory);
-		this.publisher = new RegistryPublisher(factory);
+		
+		RegistryImporter importer = new RegistryImporter(factory); 
+		this.importers.add(importer);
+		this.importers.add(new CsvRegistryImporter(importer));
+		
+		if (!registry.isReadonly())
+			publishers.add(new RegistryPublisher(factory));
 		
 	}
 	
@@ -43,12 +51,12 @@ public abstract class RegistryProxy<T extends Registry> implements ServiceProxy 
 
 	@Override
 	public List<Importer<?,?>> importers() {
-		return Arrays.<Importer<?,?>>asList(importer, new CsvRegistryImporter(importer));
+		return importers;
 	}
 
 	@Override
-	public List<RegistryPublisher> publishers() {
-		return Arrays.asList(publisher);
+	public List<Publisher<?,?>> publishers() {
+		return publishers;
 	}
 
 	@Override

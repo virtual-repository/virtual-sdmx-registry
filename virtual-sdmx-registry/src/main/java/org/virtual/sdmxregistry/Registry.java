@@ -9,6 +9,8 @@ public interface Registry {
 
 	public QName name();
 	
+	public boolean isReadonly();
+	
 	public Property[] properties();
 	
 }

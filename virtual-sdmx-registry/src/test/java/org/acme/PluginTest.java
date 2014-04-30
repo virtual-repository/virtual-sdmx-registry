@@ -53,7 +53,6 @@ public class PluginTest {
 		repos.load();
 		
 		assertTrue(repos.size()>0);
-		
 	}
 
 }

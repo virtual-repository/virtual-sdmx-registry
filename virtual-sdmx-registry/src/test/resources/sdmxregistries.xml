@@ -3,4 +3,8 @@
 		<name ns="http://gcube-system.org">D4Science Development Registry</name>
 		<property name="scope" value="/gcube/devsec"/>
 	</gcube>
+	<generic readonly="true">
+		<name>FAO Sdmx Registry</name>
+		<address>http://data.fao.org/sdmx/registry/</address>
+	</generic>
 </registries>
