@@ -55,7 +55,7 @@ public class APITests {
 			System.out.println(list.getName());
 	}
 	
-
+	
 	@Test
 	public void browseSources() throws Exception {
 
@@ -81,6 +81,18 @@ public class APITests {
 		Table table = repo.retrieve(repo.iterator().next(),Table.class);
 		
 		System.out.println(table);
+		
+	}
+	
+	@Test
+	public void browseSdmxSources() {
+		
+		VirtualRepository repo  = new Repository();
+		
+		repo.discover(SdmxCodelist.type);
+		
+		for (Asset asset : repo)
+			System.out.println(asset);
 		
 	}
 	
